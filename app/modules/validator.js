@@ -11,22 +11,28 @@ var hash_array = [
   {
     name: 'bitcoin',
     value: 0x00
-  }, {
+  },
+  {
     name: 'bitcoin_script_hash',
     value: 0x05
-  }, {
+  },
+  {
     name: 'testnet',
-    value: 0x6F
-  }, {
+    value: 0x6f
+  },
+  {
     name: 'testnet_script_hash',
-    value: 0xC4
-  }, {
+    value: 0xc4
+  },
+  {
     name: 'dogecoin',
-    value: 0x1E
-  }, {
+    value: 0x1e
+  },
+  {
     name: 'litecoin',
     value: 0x30
-  }, {
+  },
+  {
     name: 'namecoin',
     value: 0x34
   }
@@ -36,19 +42,21 @@ var assetid_prefixes = [
   {
     name: 'unlocked',
     value: 0x2e
-  }, {
+  },
+  {
     name: 'locked1',
     value: 0x20
-  }, {
+  },
+  {
     name: 'locked2',
     value: 0x21
   }
 ]
 
-validator.isCryptoAddress = function (address) {
+validator.isCryptoAddress = function(address) {
   var result = false
   if (typeof address === 'string') address = [address]
-  address.forEach(function (singleAddress) {
+  address.forEach(function(singleAddress) {
     for (var hash in hash_array) {
       if (cs.isValid(singleAddress, hash_array[hash].value)) {
         result = true
@@ -58,7 +66,7 @@ validator.isCryptoAddress = function (address) {
   return result
 }
 
-validator.isCryptoAddresses = function (addresses) {
+validator.isCryptoAddresses = function(addresses) {
   if (!Array.isArray(addresses)) return false
   for (var i = 0; i < addresses.length; i++) {
     if (!validator.isCryptoAddress(addresses[i])) {
@@ -68,29 +76,29 @@ validator.isCryptoAddresses = function (addresses) {
   return true
 }
 
-validator.isHexInLength = function (str, num) {
+validator.isHexInLength = function(str, num) {
   if (str.length === num && validator.isHexadecimal(str)) {
     return true
   }
   return false
 }
 
-validator.isHexInLength32 = function (str) {
+validator.isHexInLength32 = function(str) {
   return validator.isHexInLength(str, 32)
 }
 
-validator.isHexInLength64 = function (str) {
+validator.isHexInLength64 = function(str) {
   return validator.isHexInLength(str, 64)
 }
 
-validator.isAssetId = function (str) {
+validator.isAssetId = function(str) {
   if (typeof str === 'string') {
     str = [str]
   }
   var ans = true
-  str.forEach(function (assetId) {
+  str.forEach(function(assetId) {
     var is_valid = false
-    assetid_prefixes.forEach(function (assetid_prefix) {
+    assetid_prefixes.forEach(function(assetid_prefix) {
       if (is_valid || cs.isValid(assetId, assetid_prefix.value)) {
         is_valid = true
       }
@@ -102,39 +110,43 @@ validator.isAssetId = function (str) {
   return ans
 }
 
-validator.isUtxo = function (utxo) {
+validator.isUtxo = function(utxo) {
   if (typeof utxo !== 'string') return false
   var utxoParts = utxo.split(':')
   if (utxoParts.length !== 2) return false
   return validateUtxoParts(utxoParts)
 }
 
-var validateUtxoParts = function (utxoParts) {
+var validateUtxoParts = function(utxoParts) {
   return validator.isHexInLength64(utxoParts[0]) && validator.isNumeric(utxoParts[1])
 }
 
-validator.isUtxos = function (utxos) {
+validator.isUtxos = function(utxos) {
   if (!Array.isArray(utxos)) return false
   for (var i = 0; i < utxos.length; i++) {
-    if (typeof utxos[i].txid === 'undefined' || typeof utxos[i].index === 'undefined' || !validateUtxoParts([utxos[i].txid, utxos[i].index])) {
+    if (
+      typeof utxos[i].txid === 'undefined' ||
+      typeof utxos[i].index === 'undefined' ||
+      !validateUtxoParts([utxos[i].txid, utxos[i].index])
+    ) {
       return false
     }
   }
   return true
 }
 
-var isV0 = function (url) {
+var isV0 = function(url) {
   return !url.match(/\/v\d\//)
 }
 
-module.exports = function (req, res, next) {
+module.exports = function(req, res, next) {
   if (isV0(req.originalUrl)) {
     return next()
   }
 
   return expressValidator({
     customValidators: {
-      height_or_hash: function (height_or_hash) {
+      height_or_hash: function(height_or_hash) {
         return validator.isHexInLength64(height_or_hash) || validator.isNumeric(height_or_hash)
       },
       colored: validator.isBoolean,
@@ -147,7 +159,9 @@ module.exports = function (req, res, next) {
       start: validator.isNumeric,
       end: validator.isNumeric,
       interval: validator.isNumeric,
-      arg: function () { return true },
+      arg: function() {
+        return true
+      },
       index: validator.isNumeric,
       addresses: validator.isCryptoAddresses,
       utxos: validator.isUtxos

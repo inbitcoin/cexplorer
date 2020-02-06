@@ -1,6 +1,6 @@
 {
-  "name": "cc-block-explorer",
-  "version": "1.0.2",
+  "name": "cexplorer",
+  "version": "2.2.0",
   "description": "Colored Coins Block Explorer",
   "main": "app.js",
   "dependencies": {
@@ -9,34 +9,37 @@
     "bitcoin-async": "^1.0.0",
     "bitcoinjs-lib": "^1.5.6",
     "bs58": "^3.0.0",
-    "casimircore": "^0.10.0",
-    "cc-block-parser": "^0.5.0",
+    "casimircore": "git://github.com/inbitcoin/casimircore.git#86c378c",
+    "cc-block-parser-inbitcoin": "git://github.com/inbitcoin/cparser.git#v2.2.1",
     "cc-errors": "~0.0.6",
     "cc-request-id": "0.0.2",
     "coinstring": "^2.3.0",
     "commander": "^2.9.0",
     "ecdsa": "^0.6.0",
     "ecurve": "^1.0.2",
-    "express-validator": "^2.20.8",
+    "express-validator": "^5.3.1",
     "google-libphonenumber": "^1.0.4",
     "jade": "^1.9.1",
     "jsonfile": "^2.0.0",
-    "lodash": "^4.16.6",
-    "moment": "~2.8.4",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "mongoose": "~4.4.3",
     "randomstring": "^1.1.5",
     "ttl": "^1.3.0",
     "validator": "^3.27.0"
   },
   "bin": {
-    "cc-explorer": "./bin/cc-block-explorer",
-    "cc-block-explorer": "./bin/cc-block-explorer"
+    "cc-explorer": "./bin/cexplorer",
+    "cc-block-explorer": "./bin/cexplorer"
   },
   "devDependencies": {
     "chai": "^2.3.0",
+    "eslint": "^6.8.0",
     "istanbul": "^0.3.19",
     "loadtest": "^1.2.14",
     "mocha": "^2.3.0",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
     "supertest": "^1.1.0",
     "tape": "^4.0.0",
     "xunit-file": "0.0.7"
@@ -45,14 +48,14 @@
     "casimir": "npm install && nodemon",
     "test": "NODE_ENV=QA istanbul cover _mocha -- -R tap > test-reports.tap && istanbul report html",
     "ci-mocha-test": "NODE_ENV=QA mocha -R xunit > test-reports.xml",
-    "start": "sudo node app.js",
+    "start": "node app.js",
     "ci-coverage-test": "NODE_ENV=QA istanbul cover _mocha -- -R tap > test-reports.tap && istanbul report cobertura",
     "ci-full": "NODE_ENV=QA LOG_XUNIT=true XUNIT_FILE=test-reports.xml istanbul cover _mocha -- -R xunit-file",
     "test-windows": ".\\node_modules\\.bin\\istanbul cover .\\node_modules\\mocha\\bin\\_mocha\\ -- -R tap > .\\test-reports.tap && istanbul report html"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Colored-Coins/Colored-Coins-Block-Explorer.git"
+    "url": "git+ssh://git@gitlab.inbitcoin.it/colored/cexplorer"
   },
   "keywords": [
     "explorer",
