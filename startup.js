@@ -37,8 +37,6 @@ properties.bus.subscribe = properties.bus.subscribe.toLowerCase() === 'true'
 properties.scanner.start_block = parseInt(properties.scanner.start_block || '0')
 properties.scanner.skip_missing_txid = properties.scanner.skip_missing_txid === 'true'
 properties.retry_missing_txid = parseInt(properties.retry_missing_txid || 2)
-properties.scanner.limit_fixer = parseInt(properties.scanner.limit_fixer) || 50
-properties.scanner.limit_ccparser = parseInt(properties.scanner.limit_ccparser) || 500
 properties.scanner.scanner_enabled = properties.scanner.scanner_enabled || 'true'
 properties.scanner.fixer_enabled = properties.scanner.fixer_enabled || 'true'
 properties.scanner.ccparser_enabled = properties.scanner.ccparser_enabled || 'true'
