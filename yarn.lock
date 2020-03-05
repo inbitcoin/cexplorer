@@ -652,9 +652,9 @@ cc-assetid-encoder@^0.6.0:
     crypto-hashing "0.3.1"
     debug "2.2.0"
 
-"cc-block-parser-inbitcoin@git://github.com/inbitcoin/cparser.git#2.2.1":
-  version "2.2.1"
-  resolved "git://github.com/inbitcoin/cparser.git#7fd4e1581cc2577c51d50dd1dd6a92d5b63b9163"
+"cc-block-parser-inbitcoin@git://github.com/inbitcoin/cparser.git#v2.3.0":
+  version "2.3.0"
+  resolved "git://github.com/inbitcoin/cparser.git#e96e50df52cde88b1c12696bdd3a755c6e009aec"
   dependencies:
     async "~2.4.0"
     bitcoin-async "^1.0.0"
