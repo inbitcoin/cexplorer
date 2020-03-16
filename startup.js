@@ -43,6 +43,7 @@ properties.scanner.ccparser_enabled = properties.scanner.ccparser_enabled || 'tr
 properties.scanner.asset_id = properties.scanner.asset_id || ''
 properties.scanner.colored_filter = properties.scanner.colored_filter || 'true'
 properties.scanner.issuance_txid = properties.scanner.issuance_txid || ''
+properties.scanner.max_block_to_get = parseInt(properties.scanner.max_block_to_get) || 500
 if (properties.scanner.scanner_enabled !== 'true') logger.info('SCANNER disabled')
 if (properties.scanner.fixer_enabled !== 'true') logger.info('FIXER disabled')
 if (properties.scanner.ccparser_enabled !== 'true') logger.info('CC_PARSER disabled')
