@@ -26,7 +26,7 @@ set_default() {
 }
 
 function log() {
-	$ECHO "`date`: $@"
+    $ECHO "`date`: $@"
 }
 
 ECHO="/bin/echo"
@@ -41,8 +41,8 @@ SERVER="$DB_HOST:$DB_PORT"
 log "Check MongoDB ($SERVER) status"
 
 until $ECHO 'db.stats().ok' | mongo $SERVER --quiet >/dev/null; do
-	log "Waiting $WAIT_SECONDS seconds to retry..."
-	sleep $WAIT_SECONDS
+    log "Waiting $WAIT_SECONDS seconds to retry..."
+    sleep $WAIT_SECONDS
 done
 
 log "Start cexplorer service"
