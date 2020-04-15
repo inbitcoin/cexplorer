@@ -14,6 +14,9 @@ properties.scanner.mempool = process.env.MEMPOOL || (properties.scanner && prope
 properties.scanner.mempool_only = process.env.MEMPOOLONLY || (properties.scanner && properties.scanner.mempool_only)
 properties.sockets.all_channels = process.env.ALLCHANNELS || properties.sockets.all_channels
 
+properties.db.host = process.env.DB_HOST || properties.db.host
+properties.db.port = process.env.DB_PORT || properties.db.port
+
 properties.scanner.start_block = parseInt(properties.scanner.start_block || '0')
 properties.scanner.skip_missing_txid = properties.scanner.skip_missing_txid === 'true'
 properties.retry_missing_txid = parseInt(properties.retry_missing_txid || 2)
