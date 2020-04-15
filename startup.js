@@ -40,9 +40,7 @@ properties.retry_missing_txid = parseInt(properties.retry_missing_txid || 2)
 properties.scanner.scanner_enabled = properties.scanner.scanner_enabled || 'true'
 properties.scanner.fixer_enabled = properties.scanner.fixer_enabled || 'true'
 properties.scanner.ccparser_enabled = properties.scanner.ccparser_enabled || 'true'
-properties.scanner.asset_id = properties.scanner.asset_id || ''
 properties.scanner.colored_filter = properties.scanner.colored_filter || 'true'
-properties.scanner.issuance_txid = properties.scanner.issuance_txid || ''
 properties.scanner.max_block_to_get = parseInt(properties.scanner.max_block_to_get) || 500
 if (properties.scanner.scanner_enabled !== 'true') logger.info('SCANNER disabled')
 if (properties.scanner.fixer_enabled !== 'true') logger.info('FIXER disabled')
