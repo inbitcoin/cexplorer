@@ -32,6 +32,9 @@ function log() {
 ECHO="/bin/echo"
 INSTALL_PATH="$APP/cexplorer/"
 
+[ ! -f ${INSTALL_PATH}/config/properties.conf ] && \
+    echo "Missing file '${INSTALL_PATH}/config/properties.conf', please mount it" && exit 1
+
 WAIT_SECONDS=$(set_default "$WAIT_SECONDS" 5)
 DB_HOST=$(set_default "$DB_HOST" "mongodb")
 DB_PORT=$(set_default "$DB_PORT" "27017")
