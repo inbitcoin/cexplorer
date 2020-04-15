@@ -2,13 +2,6 @@ var mongoose = require('mongoose')
 var async = require('async')
 var path = require('path')
 var fs = require('fs')
-var pubsub
-
-try {
-  pubsub = require('fw_pubsub')
-} catch (e) {
-  console.warn('no pubsub', e)
-}
 
 var casimir = global.casimir
 var server = casimir.server
@@ -21,19 +14,6 @@ properties.scanner.mempool = process.env.MEMPOOL || (properties.scanner && prope
 properties.scanner.mempool_only = process.env.MEMPOOLONLY || (properties.scanner && properties.scanner.mempool_only)
 properties.sockets.all_channels = process.env.ALLCHANNELS || properties.sockets.all_channels
 
-properties.bus = properties.bus || {}
-properties.bus.redis = process.env.BUS_REDIS || properties.bus.redis
-properties.bus.channel = process.env.BUS_CHANNEL || properties.bus.channel
-properties.bus.mongodb = process.env.BUS_MONGODB || properties.bus.mongodb
-properties.bus.timer = parseInt(process.env.BUS_TIMER || properties.bus.timer || '0')
-properties.bus.short_ttl = parseInt(process.env.BUS_SHORT_TTL || properties.bus.short_ttl || '604800000') // 1000 * 60 * 60 * 24 * 7 (week)
-properties.bus.long_ttl = parseInt(process.env.BUS_LONG_TTL || properties.bus.long_ttl || '315360000000') // 1000 * 60 * 60 * 24 * 365 * 10 (10 years)
-properties.bus.debug = properties.bus.debug || process.env.BUS_DEBUG || 'false'
-properties.bus.debug = properties.bus.debug.toLowerCase() === 'true'
-properties.bus.returnBuffers = properties.bus.returnBuffers || process.env.BUS_RETURN_BUFFER || 'false'
-properties.bus.returnBuffers = properties.bus.returnBuffers.toLowerCase() === 'true'
-properties.bus.subscribe = properties.bus.subscribe || process.env.BUS_SUBSCRIBE || 'false'
-properties.bus.subscribe = properties.bus.subscribe.toLowerCase() === 'true'
 properties.scanner.start_block = parseInt(properties.scanner.start_block || '0')
 properties.scanner.skip_missing_txid = properties.scanner.skip_missing_txid === 'true'
 properties.retry_missing_txid = parseInt(properties.retry_missing_txid || 2)
@@ -144,34 +124,13 @@ async.waterfall(
         }
       }
       casimir.scanner = scanner = new Scanner(settings, mongoose)
-      if (
-        pubsub &&
-        properties.bus.redis &&
-        properties.bus.mongodb &&
-        properties.bus.channel &&
-        process.env.ROLE === properties.roles.SCANNER
-      ) {
-        casimir.bus = new pubsub.PBus(properties.bus)
-        casimir.bus.once('ready', function() {
-          callback()
-        })
-        casimir.bus.on('error', function(err) {
-          console.error('BUS_ERROR', err)
-        })
-        casimir.bus.create()
-      } else {
-        callback()
-      }
+      callback()
     },
     function(callback) {
       var opts = {
         io: casimir.server.io_server,
         api_versions: getApiVersions(),
         scanner: scanner
-      }
-      if (casimir.bus) {
-        opts.bus = casimir.bus
-        opts.channel_prefix = properties.bus.channel
       }
       casimir.sockets = new Sockets(opts)
       if (properties.scanner.scan === 'true' && properties.scanner.mempool_only !== 'true') {
