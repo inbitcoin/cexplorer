@@ -1,6 +1,6 @@
 {
   "name": "cexplorer",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Colored Coins Block Explorer",
   "main": "app.js",
   "dependencies": {
