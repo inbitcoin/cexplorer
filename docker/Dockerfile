@@ -8,8 +8,11 @@ RUN deluser ${USER} && \
     adduser --home ${APP} --shell /bin/bash --disabled-login --gecos "user" ${USER}
 
 # install deps
-RUN apt-get update && \
-    apt-get -y install git mongodb-clients && \
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 4B7C549A058F8B6B && \
+    echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.2 main" > /etc/apt/sources.list.d/mongodb.list && \
+    apt-get update && \
+    apt-get -y install git mongodb-org-shell && \
+    rm /etc/apt/sources.list.d/mongodb.list && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # copy all files
