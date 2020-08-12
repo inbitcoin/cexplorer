@@ -9,7 +9,7 @@
     "bitcoin-async": "^1.0.0",
     "bitcoinjs-lib": "^1.5.6",
     "bs58": "^3.0.0",
-    "casimircore": "git://github.com/inbitcoin/casimircore.git#86c378c",
+    "casimircore": "git://github.com/inbitcoin/casimircore.git#inbitcoin/v0.10.0",
     "cc-block-parser-inbitcoin": "git://github.com/inbitcoin/cparser.git#v2.3.2",
     "cc-errors": "~0.0.6",
     "cc-request-id": "0.0.2",
