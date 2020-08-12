@@ -20,12 +20,12 @@ COPY app ${APP}/cexplorer/app
 COPY bin ${APP}/cexplorer/bin
 COPY config ${APP}/cexplorer/config
 COPY routes ${APP}/cexplorer/routes
-COPY app.js nodemon.json package.json run.sh startup.js yarn.lock ${APP}/cexplorer/
+COPY app.js nodemon.json package.json run.sh startup.js package-lock.json ${APP}/cexplorer/
 
 # install cexplorer
 WORKDIR ${APP}/cexplorer
-RUN yarn install && \
-    yarn cache clean
+RUN npm install && \
+    npm cache clean --force
 
 # set permissions
 RUN chown -R ${USER}:${USER} ${APP}

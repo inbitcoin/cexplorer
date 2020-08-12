@@ -22,7 +22,7 @@ should run.
 To install and run the service, execute:
 
 ```bash
-$ yarn install
+$ npm install
 $ NODE_ENV=production npm start
 ```
 
